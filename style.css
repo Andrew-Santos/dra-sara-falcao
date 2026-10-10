@@ -1,0 +1,242 @@
+/* ==========================================================================
+   Dra. Sara Falcão — Bio
+   Paleta extraída do card "Sua calcinha está tentando te contar alguma coisa"
+   ========================================================================== */
+:root{
+  --bg-top:     #EECFBA;   /* pêssego rosado, topo do card */
+  --bg-bottom:  #FBDBC6;   /* pêssego claro, base do card */
+  --surface:    rgba(255,244,236,0.55);
+  --line:       rgba(125,60,30,0.22);
+  --text:       #7D3C1E;   /* marrom do título do card */
+  --text-soft:  #834629;   /* marrom dos textos de apoio */
+  --text-mute:  #A0705A;
+  --clay:       #7D3C1E;
+  --clay-hover: #94492A;
+  --cream:      #FFF3EA;
+
+  --display: "Italiana", "Didot", "Bodoni MT", Georgia, serif;
+  --sans:    "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+*{ box-sizing: border-box; }
+html{ background: var(--bg-bottom); }
+
+body{
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%) fixed;
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+img{ max-width: 100%; display: block; }
+a{ color: inherit; text-decoration: none; }
+ul{ margin: 0; padding: 0; list-style: none; }
+h1{ font-family: var(--display); margin: 0; font-weight: 400; }
+
+/* luz entrando pela janela, como no fundo do card */
+.light{
+  position: fixed; inset: -10% -20% auto -20%;
+  height: 120%;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, transparent 8%, rgba(255,240,228,0.55) 18%, transparent 30%),
+    linear-gradient(115deg, transparent 38%, rgba(255,240,228,0.30) 46%, transparent 56%);
+  filter: blur(26px);
+  opacity: 0.8;
+}
+
+.card{
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  padding: 56px 28px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.photo{
+  margin-top: 8px;
+  width: 156px; height: 156px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--clay);
+  padding: 5px;
+  background: transparent;
+  margin-bottom: 24px;
+}
+.photo img{
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  object-fit: cover; object-position: top center;
+}
+
+.name{
+  font-size: 2.35rem;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+}
+.role{
+  margin: 12px 0 0;
+  font-size: 0.74rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--text-soft);
+}
+.crm{
+  margin: 6px 0 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--text-mute);
+}
+
+/* moldura em "L", o mesmo recurso do card */
+.frame{
+  position: relative;
+  width: 100%;
+  margin: 30px 0 30px;
+  padding: 22px 26px;
+  font-family: var(--display);
+  font-size: 1.28rem;
+  line-height: 1.35;
+  color: var(--text);
+}
+.frame::before, .frame::after{
+  content: ""; position: absolute;
+  width: 46%; height: 52%;
+  border: 1px solid var(--clay);
+  pointer-events: none;
+}
+.frame::before{ top: 0; left: 0; border-right: 0; border-bottom: 0; }
+.frame::after { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+
+.btn{
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 100%;
+  padding: 16px 24px;
+  border-radius: 999px;
+  background: var(--clay);
+  color: var(--cream);
+  font-size: 0.9rem; font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.btn:hover{ transform: translateY(-2px); background: var(--clay-hover); }
+
+.links{
+  width: 100%;
+  margin-top: 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.accordion{
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+.accordion:has(.item[aria-expanded="true"]){ border-color: var(--clay); }
+
+.item{
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  text-align: left;
+}
+
+.item--link{
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  transition: border-color 0.25s ease;
+}
+.item--link:hover{ border-color: var(--clay); }
+
+.item__plus{
+  position: relative;
+  width: 12px; height: 12px; flex-shrink: 0;
+}
+.item__plus::before, .item__plus::after{
+  content: ""; position: absolute; background: var(--clay);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.item__plus::before{ top: 50%; left: 0; width: 100%; height: 1.5px; transform: translateY(-50%); }
+.item__plus::after{ left: 50%; top: 0; height: 100%; width: 1.5px; transform: translateX(-50%); }
+.item[aria-expanded="true"] .item__plus::after{ transform: translateX(-50%) rotate(90deg); opacity: 0; }
+
+.item__arrow{ color: var(--clay); font-size: 0.95rem; flex-shrink: 0; }
+
+.item:focus-visible, .btn:focus-visible, .footer a:focus-visible{
+  outline: 2px solid var(--clay); outline-offset: 3px;
+}
+
+.panel-wrap{
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s ease;
+}
+.panel-wrap.is-open{ grid-template-rows: 1fr; }
+
+.panel{
+  overflow: hidden;
+  min-height: 0;
+  text-align: left;
+  color: var(--text-soft);
+  font-size: 0.88rem;
+}
+.panel p, .panel .tags{ margin: 0 20px 14px; }
+.panel p:first-child{ margin-top: 2px; }
+.panel p:last-child, .panel .tags{ margin-bottom: 18px; }
+.panel strong{ font-weight: 600; color: var(--text); }
+
+.tags{ display: flex; flex-wrap: wrap; gap: 8px; }
+.tags li{
+  font-size: 0.8rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255,244,236,0.7);
+  color: var(--text);
+}
+
+.footer{
+  margin-top: 40px;
+  color: var(--text-soft);
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+}
+.footer p{ margin: 0 0 6px; }
+.footer__rights{ opacity: 0.8; }
+.footer__credit{ opacity: 0.8; margin-bottom: 0; }
+.footer__credit a{ text-decoration: underline; text-underline-offset: 2px; }
+.footer__credit a:hover{ color: var(--clay-hover); }
+
+@media (max-width: 380px){
+  .card{ padding: 44px 20px 32px; }
+  .name{ font-size: 2.05rem; }
+}
+@media (prefers-reduced-motion: reduce){
+  *{ transition: none !important; }
+}
